@@ -17,7 +17,7 @@ public class DayoneApplication {
 //        SpringApplication.run(DayoneApplication.class, args);
 
         try {
-            Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/KO/history/?frequency=1mo&period1=1597225902&period2=1754992298");
+            Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/COKE/history/?frequency=1mo&period1=99153000&period2=1755256463");
             Document document = connection.get();
             Elements eles = document.getElementsByAttributeValue("data-test", "historical-prices");
             Element ele = eles.getFirst(); // table 전체
