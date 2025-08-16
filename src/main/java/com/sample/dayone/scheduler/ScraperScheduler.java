@@ -23,7 +23,7 @@ public class ScraperScheduler {
     private final DividendRepository dividendRepository;
 
     // 일정 주기마다 수행
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling() {
 
         log.info("scraping scheduler is started");
