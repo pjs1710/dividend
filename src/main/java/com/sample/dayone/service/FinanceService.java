@@ -3,6 +3,7 @@ package com.sample.dayone.service;
 import com.sample.dayone.model.Company;
 import com.sample.dayone.model.Dividend;
 import com.sample.dayone.model.ScrapedResult;
+import com.sample.dayone.model.constants.CacheKey;
 import com.sample.dayone.persist.CompanyRepository;
 import com.sample.dayone.persist.DividendRepository;
 import com.sample.dayone.persist.entity.CompanyEntity;
@@ -24,7 +25,7 @@ public class FinanceService {
     private final CompanyRepository companyRepository;
     private final DividendRepository dividendRepository;
 
-    @Cacheable(key = "#companyName", value = "finance")
+    @Cacheable(key = "#companyName", value = CacheKey.KEY_FINANCE)
     public ScrapedResult getDividendByCompanyName(String companyName) {
         log.info("search company -> " + companyName);
         CompanyEntity company = this.companyRepository.findByName(companyName)

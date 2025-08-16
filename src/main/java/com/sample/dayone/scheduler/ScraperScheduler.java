@@ -2,6 +2,7 @@ package com.sample.dayone.scheduler;
 
 import com.sample.dayone.model.Company;
 import com.sample.dayone.model.ScrapedResult;
+import com.sample.dayone.model.constants.CacheKey;
 import com.sample.dayone.persist.CompanyRepository;
 import com.sample.dayone.persist.DividendRepository;
 import com.sample.dayone.persist.entity.CompanyEntity;
@@ -9,12 +10,15 @@ import com.sample.dayone.persist.entity.DividendEntity;
 import com.sample.dayone.scraper.Scraper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Slf4j
 @Component
+@EnableCaching
 @AllArgsConstructor
 public class ScraperScheduler {
 
@@ -23,6 +27,7 @@ public class ScraperScheduler {
     private final DividendRepository dividendRepository;
 
     // 일정 주기마다 수행
+    @CacheEvict(value = CacheKey.KEY_FINANCE, allEntries = true)
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling() {
 
