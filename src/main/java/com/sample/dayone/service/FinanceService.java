@@ -1,5 +1,6 @@
 package com.sample.dayone.service;
 
+import com.sample.dayone.exception.impl.NoCompanyException;
 import com.sample.dayone.model.Company;
 import com.sample.dayone.model.Dividend;
 import com.sample.dayone.model.ScrapedResult;
@@ -29,7 +30,7 @@ public class FinanceService {
     public ScrapedResult getDividendByCompanyName(String companyName) {
         log.info("search company -> " + companyName);
         CompanyEntity company = this.companyRepository.findByName(companyName)
-                    .orElseThrow(() -> new RuntimeException("존재하지 않는 회사명입니다."));
+                    .orElseThrow(() -> new NoCompanyException());
 
         List<DividendEntity> dividendEntities = this.dividendRepository.findAllByCompanyId(company.getId());
 

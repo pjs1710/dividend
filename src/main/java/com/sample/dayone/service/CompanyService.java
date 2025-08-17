@@ -1,5 +1,6 @@
 package com.sample.dayone.service;
 
+import com.sample.dayone.exception.impl.NoCompanyException;
 import com.sample.dayone.model.Company;
 import com.sample.dayone.model.ScrapedResult;
 import com.sample.dayone.persist.CompanyRepository;
@@ -82,7 +83,7 @@ public class CompanyService {
 
     public String deleteCompany(String ticker) {
         var company = this.companyRepository.findByTicker(ticker)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 회사입니다."));
+                .orElseThrow(() -> new NoCompanyException());
 
         this.dividendRepository.deleteAllByCompanyId(company.getId());
         this.companyRepository.delete(company);
